@@ -1,31 +1,63 @@
 import { solution } from './words'
-import { ORTHOGRAPHY } from '../constants/orthography'
-import { ORTHOGRAPHY_PATTERN } from './tokenizer'
+
+export const alphas = 'QWERTYUIOPASDFGHJKLZXCVBNM'.split('')
+export const krs = 'ㅂㅈㄷㄱㅅㅛㅕㅑㅐㅔㅁㄴㅇㄹㅎㅗㅓㅏㅣㅋㅌㅊㅍㅠㅜㅡ'.split('')
+
+export const alpha_2_kr = Object.fromEntries(alphas.map((k,i) => [k,krs[i]]))
+export const kr_2_alpha = Object.fromEntries(krs.map((k,i) => [k,alphas[i]]))
+
 
 export type CharStatus = 'absent' | 'present' | 'correct'
 
-export type CharValue = typeof ORTHOGRAPHY[number]
+export type CharValue =
+  | 'Q'
+  | 'W'
+  | 'E'
+  | 'R'
+  | 'T'
+  | 'Y'
+  | 'U'
+  | 'I'
+  | 'O'
+  | 'P'
+  | 'A'
+  | 'S'
+  | 'D'
+  | 'F'
+  | 'G'
+  | 'H'
+  | 'J'
+  | 'K'
+  | 'L'
+  | 'Z'
+  | 'X'
+  | 'C'
+  | 'V'
+  | 'B'
+  | 'N'
+  | 'M'
 
 export const getStatuses = (
-  guesses: string[][]
+  guesses: string[]
 ): { [key: string]: CharStatus } => {
   const charObj: { [key: string]: CharStatus } = {}
-  const solutionChars = solution.split(ORTHOGRAPHY_PATTERN).filter((i) => i)
+
   guesses.forEach((word) => {
-    word.forEach((letter, i) => {
-      if (!solutionChars.includes(letter)) {
+    word.split('').forEach((letter, i) => {
+      const _letter = kr_2_alpha[letter]
+      if (!solution.includes(letter)) {
         // make status absent
-        return (charObj[letter] = 'absent')
+        return (charObj[_letter] = 'absent')
       }
 
-      if (letter === solutionChars[i]) {
+      if (letter === solution[i]) {
         //make status correct
-        return (charObj[letter] = 'correct')
+        return (charObj[_letter] = 'correct')
       }
 
-      if (charObj[letter] !== 'correct') {
+      if (charObj[_letter] !== 'correct') {
         //make status present
-        return (charObj[letter] = 'present')
+        return (charObj[_letter] = 'present')
       }
     })
   })
@@ -33,9 +65,9 @@ export const getStatuses = (
   return charObj
 }
 
-export const getGuessStatuses = (guess: string[]): CharStatus[] => {
-  const splitSolution = solution.split(ORTHOGRAPHY_PATTERN).filter((i) => i)
-  const splitGuess = guess
+export const getGuessStatuses = (guess: string): CharStatus[] => {
+  const splitSolution = solution.split('')
+  const splitGuess = guess.split('')
 
   const solutionCharsTaken = splitSolution.map((_) => false)
 
