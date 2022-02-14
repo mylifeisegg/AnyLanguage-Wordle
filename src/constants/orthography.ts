@@ -28,9 +28,3 @@ export const ORTHOGRAPHY = [
   'ㅐ',
   'ㅔ'
 ]
-
-if (CONFIG.normalization) {
-  ORTHOGRAPHY.forEach(
-    (val, i) => (ORTHOGRAPHY[i] = val.normalize(CONFIG.normalization))
-  )
-}
