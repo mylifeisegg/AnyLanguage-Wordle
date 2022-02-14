@@ -17,8 +17,8 @@ export const VALIDGUESSES = [
     'ㅅㅜㅁㅏㄹㅡ'
 ]
 
-if (CONFIG.normalization) {
-  VALIDGUESSES.forEach(
-    (val, i) => (VALIDGUESSES[i] = val.normalize(CONFIG.normalization))
-  )
-}
+// if (CONFIG.normalization) {
+//   VALIDGUESSES.forEach(
+//     (val, i) => (VALIDGUESSES[i] = val.normalize(CONFIG.normalization))
+//   )
+// }
