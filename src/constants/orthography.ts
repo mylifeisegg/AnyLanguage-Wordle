@@ -19,7 +19,7 @@ export const ORTHOGRAPHY = [
   'ㅑ',
   'ㅓ',
   'ㅕ',
-  'ㅇ',
+  'ㅗ',
   'ㅛ',
   'ㅜ',
   'ㅠ',
